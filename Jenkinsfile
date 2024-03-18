@@ -8,7 +8,7 @@ pipeline {
         
         stage('Build'){
             steps {
-                bat 'call mvn clean package'
+                bat 'call mvn clean install package'
             }
         }
         
