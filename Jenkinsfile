@@ -1,41 +1,33 @@
-pipeline{
-    //Directives
+pipeline {
     agent any
     tools {
         maven 'maven'
     }
-
+    
     stages {
-        // Specify various stage with in stages
-
-        // stage 1. Build
-        stage ('Build'){
+        
+        stage('Build'){
             steps {
                 sh 'mvn clean install package'
             }
         }
-
-        // Stage2 : Testing
-        stage ('Test'){
+        
+        stage('Test'){
             steps {
-                echo ' testing......'
-
+                echo 'Testing--------------'
             }
         }
-
-        // Stage3 : Publish the source code to Sonarqube
-        stage ('Sonarqube Analysis'){
+        //Publish the Artifacts to Nexus
+        stage('Publish to Nexus'){
             steps {
-                echo ' Source code published to Sonarqube for SCA......'
-                withSonarQubeEnv('sonarqube'){ // You can override the credential to be used
-                     sh 'mvn sonar:sonar'
-                }
-
+                nexusArtifactUploader artifacts: [[artifactId: 'VinayDevOpsLab', classifier: '', file: 'target/VinayDevOpsLab-0.0.8.war', type: 'war']], credentialsId: 'c044a60f-917d-4733-aee7-bfcc41e91748', groupId: 'com.vinaysdevopslab', nexusUrl: 'https://679b-2401-4900-5628-4fac-fd06-8de3-9035-448a.ngrok-free.app', nexusVersion: 'nexus2', protocol: 'http', repository: 'MyLabDemo-SNAPSHOT', version: '0.0.8'
             }
         }
-
         
-        
+        stage('Deploy'){
+            steps {
+                echo 'Deploying------------'
+            }
+        }
     }
-
 }
