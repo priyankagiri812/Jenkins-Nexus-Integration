@@ -8,7 +8,7 @@ pipeline {
         ArtifactID = readMavenPom().getArtifactId()
         Version = readMavenPom().getVersion()
         Name = readMavenPom().getName()
-        GroupID = readMavenPom.getGroupId()
+        GroupID = readMavenPom().getGroupId()
         
         }
     
