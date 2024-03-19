@@ -4,19 +4,19 @@ pipeline {
         maven 'maven'
     }
     
+    environment{
+        ArtifactID = readMavenpom().getartifactId()
+        Version = readMavenpom().getversion()
+        Name = readMavenpom().getname()
+        GroupID = readMavenpom.getgroupId()
+        }
+    
     stages {
         
         stage('Build'){
             steps {
                 bat 'call mvn clean install package'
             }
-        }
-
-        environment{
-            ArtifactID = readMavenpom().getartifactId()
-            Version = readMavenpom().getversion()
-            Name = readMavenpom().getname()
-            GroupID = readMavenpom.getgroupId()
         }
         
         stage('Test'){
