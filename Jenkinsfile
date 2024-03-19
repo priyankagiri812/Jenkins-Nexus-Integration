@@ -9,6 +9,7 @@ pipeline {
         Version = readMavenPom().getVersion()
         Name = readMavenPom().getName()
         GroupID = readMavenPom.getGroupId()
+        
         }
     
     stages {
